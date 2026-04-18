@@ -17,9 +17,11 @@ print("\nShapes:")
 print("DF1:", df1.shape)
 print("DF2:", df2.shape)
 
+#Checking the columns of the datasets to understand the common key for merging
 print("DF1 columns:", df1.columns)
 print("DF2 columns:", df2.columns)
 
+#Renaming the common key in dataset 2 to match dataset 1
 df2.rename(columns={"User": "ID"}, inplace=True)
 
 #Merging the datasets

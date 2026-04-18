@@ -3,7 +3,7 @@ import pandas as pd
 #Load the merged dataset
 df = pd.read_csv("merged_dataset.csv")
 
-#Userstanding the merged dataset
+#Part A - Understanding the merged dataset
 
 #Number of rows and colums in the merged dataset 
 print("Number of Rows and Columns:")
