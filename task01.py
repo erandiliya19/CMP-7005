@@ -17,13 +17,16 @@ print("\nShapes:")
 print("DF1:", df1.shape)
 print("DF2:", df2.shape)
 
+print("DF1 columns:", df1.columns)
+print("DF2 columns:", df2.columns)
+
+df2.rename(columns={"User": "ID"}, inplace=True)
+
 #Merging the datasets
-merged_df = pd.concat([df1, df2], ignore_index=True)
+merged_df = pd.merge(df1, df2, on="ID", how="inner")
 
 #Print the shape of the merged dataset
-print("\nMerged Dataset Shape:", merged_df.shape)
+print("Merged Shape:", merged_df.shape)
 
 #Saving the merged dataset
 merged_df.to_csv("merged_dataset.csv", index=False)
-
-print("\nTask 1 Completed")
