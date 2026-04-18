@@ -28,6 +28,3 @@ print(df['TARGET'].value_counts())
 #Missing values in the dataset
 print("\nMissing Values in Dataset:")
 print(df.isnull().sum())
-
-
-
