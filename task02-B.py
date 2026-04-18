@@ -5,11 +5,6 @@ df = pd.read_csv("merged_dataset.csv")
 
 #Part B - Data pre processing 
 
-import pandas as pd
-
-#Load the merged dataset
-df = pd.read_csv("merged_dataset.csv")
-
 #Clean the column names 
 df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
 
@@ -17,18 +12,16 @@ df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
 print("Before:", df.shape)
 df.drop_duplicates(inplace=True)
 print("After:", df.shape)
+#Verification of duplicates
 print("Duplicate rows:", df.duplicated().sum())
 
-#Missing Value handling 
+#Missing value handling 
 print("Before cleaning:")
 print(df.isnull().sum())
-
-#Numerical columns
+#Numerical columns - Median method
 df.fillna(df.median(numeric_only=True), inplace=True)
-
-#Categorical columns
+#Categorical columns - Unknown method
 df.fillna("unknown", inplace=True)
-
 print("After cleaning:")
 print(df.isnull().sum())
 
@@ -54,5 +47,35 @@ df = df[(df['income'] >= Q1 - 1.5 * IQR) &
 print("After removing outliers:")
 print(df['income'].describe())
 
+#Feature Engineering 
+#Age Group 
+df['age_group'] = pd.cut(df['age'],
+                         bins=[18, 30, 45, 60, 100],
+                         labels=['young', 'adult', 'middle_aged', 'senior'])
+#Employment category
+df['employment_level'] = pd.cut(df['years_employed'],
+                                bins=[0, 2, 5, 10, 50],
+                                labels=['new', 'junior', 'mid', 'experienced'])
+#Income level
+df['income_level'] = pd.cut(df['income'],
+                            bins=3,
+                            labels=['low', 'medium', 'high'])
 
+#Encoding
+from sklearn.preprocessing import LabelEncoder
 
+le = LabelEncoder()
+
+for col in df.select_dtypes(include='object').columns:
+    df[col] = le.fit_transform(df[col])
+
+#Updated dataset overview
+print(df.info())
+print(df.isnull().sum())
+print(df.head())
+
+print("Final Shape:", df.shape)
+
+#Saving the updated dataset
+df.to_csv("updated_dataset.csv", index=False)
+print("Dataset saved successfully")
