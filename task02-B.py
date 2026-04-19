@@ -72,13 +72,15 @@ from sklearn.preprocessing import LabelEncoder
 
 le = LabelEncoder()
 
-for col in df.select_dtypes(include='object').columns:
+#Include BOTH object AND category types
+for col in df.select_dtypes(include=['object', 'category']).columns:
     df[col] = le.fit_transform(df[col])
 
 #Updated dataset overview
 print(df.info())
 print(df.isnull().sum())
 print(df.head())
+print(df.dtypes)
 
 print("Final Shape:", df.shape)
 
