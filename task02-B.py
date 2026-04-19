@@ -47,6 +47,9 @@ df = df[(df['income'] >= Q1 - 1.5 * IQR) &
 print("After removing outliers:")
 print(df['income'].describe())
 
+#Remove unrealistic ages
+df = df[(df['age'] >= 18) & (df['age'] <= 100)]
+
 #Feature Engineering 
 #Age Group 
 df['age_group'] = pd.cut(df['age'],
@@ -60,6 +63,9 @@ df['employment_level'] = pd.cut(df['years_employed'],
 df['income_level'] = pd.cut(df['income'],
                             bins=3,
                             labels=['low', 'medium', 'high'])
+
+#Drop irrelevant columns
+df.drop(columns=['unnamed:_0', 'id', 'flag_mobil'], inplace=True)
 
 #Encoding
 from sklearn.preprocessing import LabelEncoder
