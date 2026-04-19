@@ -57,7 +57,7 @@ df['age_group'] = pd.cut(df['age'],
                          labels=['young', 'adult', 'middle_aged', 'senior'])
 #Employment category
 df['employment_level'] = pd.cut(df['years_employed'],
-                                bins=[0, 2, 5, 10, 50],
+                                bins=[-1, 2, 5, 10, 50],
                                 labels=['new', 'junior', 'mid', 'experienced'])
 #Income level
 df['income_level'] = pd.cut(df['income'],
