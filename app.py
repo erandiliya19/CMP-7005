@@ -19,6 +19,66 @@ except Exception as e:
 
 #UI setup
 app_ui = ui.page_fluid(
+    ui.tags.style("""
+        body { 
+            background-color: #f0f2f5; 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .main-title { 
+            color: #002d72; 
+            font-weight: 800; 
+            padding: 25px 0; 
+            text-align: center;
+            letter-spacing: -1px;
+        }
+        /* Dashboard Cards */
+        .card { 
+            border-radius: 15px; 
+            border: none; 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07); 
+            margin-bottom: 20px;
+            background: #ffffff;
+        }
+        .card-header { 
+            background: #ffffff; 
+            font-weight: 700; 
+            color: #002d72; 
+            border-bottom: 1px solid #edf2f7;
+            padding: 15px;
+        }
+        /* Sidebar Styling */
+        .sidebar { 
+            background-color: #ffffff; 
+            border-radius: 15px; 
+            padding: 20px; 
+        }
+        /* Buttons */
+        .btn-primary { 
+            background: linear-gradient(90deg, #002d72 0%, #0056b3 100%);
+            border: none; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            padding: 12px;
+            transition: transform 0.2s ease;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        
+        /* Result Boxes */
+        .result-box { 
+            padding: 30px; 
+            border-radius: 12px; 
+            margin-top: 25px; 
+            font-size: 1.3rem; 
+            text-align: center; 
+            font-weight: bold;
+            animation: fadeIn 0.6s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .risk-high { background-color: #fff5f5; color: #c53030; border: 2px dashed #feb2b2; }
+        .risk-low { background-color: #f0fff4; color: #276749; border: 2px dashed #9ae6b4; }
+        .score-display { color: #4a5568; font-family: monospace; font-size: 1rem; margin-top: 10px; }
+    """),
 
     ui.panel_title("Credit Risk Assessment System 2026"),
     
