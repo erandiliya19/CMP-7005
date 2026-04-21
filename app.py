@@ -33,12 +33,24 @@ app_ui = ui.page_fluid(
         
         #EDA
         ui.nav_panel("Exploratory Data Analysis",
-            ui.div({"style": "padding: 20px;"},
+            ui.div(
                 ui.layout_column_wrap(
-                    ui.card(ui.output_plot("plot_dist")),
-                    ui.card(ui.output_plot("plot_income")),
-                    width=1/2 #replaces the old container width logic
-                )
+                    ui.card(
+                        ui.card_header("Class/Dataset Imbalance (0=Non-Fraud, 1=Fraud)"),
+                        ui.output_plot("plot_dist")
+                    ),
+                    ui.card(
+                        ui.card_header("Income Distribution by Risk Status"),
+                        ui.output_plot("plot_income")
+                    ),
+                    width=1/2
+                ),
+                ui.card(
+                    ui.card_header("Feature Correlation Matrix (Statistical Relationships)"),
+                    ui.output_plot("plot_corr"),
+                    style="margin-top: 20px;"
+                ),
+                style="padding: 20px;"
             )
         ),
         
@@ -80,6 +92,16 @@ def server(input, output, session):
     def plot_income():
         fig, ax = plt.subplots()
         sns.boxplot(data=df, x='target', y='income', palette='magma', ax=ax)
+        return fig
+    
+    @render.plot
+    def plot_corr():
+        # Correlation Heatmap
+        fig, ax = plt.subplots(figsize=(6, 4))
+        # We only correlate numeric columns
+        numeric_df = df[['age', 'income', 'years_employed', 'target']]
+        sns.heatmap(numeric_df.corr(), annot=True, cmap='RdBu', center=0, ax=ax)
+        ax.set_title("Feature Correlation Matrix")
         return fig
 
     @render.text
